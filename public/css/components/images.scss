@@ -1,0 +1,10 @@
+.drop-zone-div > div {
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+}
+
+.drop-zone-div > div > .drop-zone-text-div {
+  width: 100% !important;
+  text-align: center;
+}

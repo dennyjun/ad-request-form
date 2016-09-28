@@ -109,12 +109,14 @@ class Images extends React.Component {
             <div className="card-title">
               <span>Images</span>
             </div>
-            <Dropzone 
-              multiple={false}
-              accept="image/*" 
-              onDrop={this.onDrop}>
-              <div>Try dropping some files here, or click to select files to upload.</div>
-            </Dropzone>
+            <div className="drop-zone-div">
+              <Dropzone 
+                multiple={false}
+                accept="image/*" 
+                onDrop={this.onDrop}>
+                <div className="drop-zone-text-div">Drop file or click here to upload.</div>
+              </Dropzone>
+            </div>
             {progressbar}
             {files}
             <div className="link-div">
