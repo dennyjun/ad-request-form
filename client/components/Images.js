@@ -35,16 +35,15 @@ class Images extends React.Component {
       .post('/users/dummy/images/' + file.name.replace(/ /g, '_'))
       .send({file})
       .on('progress', (e) => {
-          console.log(e.percent)
           this.setState({
             progress: e.percent
           });
        })
       .end((err, res) => {
         if (res.ok) {
-          alert('Finished uploading ' + file.name + '!');
+          console.log('Finished uploading ' + file.name + '!');
         } else {
-          alert('Failed to upload ' + file.name + '!');
+          console.error('Failed to upload ' + file.name + '!');
         }
         this.setState({
           uploading: false,

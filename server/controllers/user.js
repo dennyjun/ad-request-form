@@ -51,5 +51,34 @@ module.exports = (function() {
     }
   });
 
+  router.get('/:userId/bids', function(req, res, next) {
+    if(Storage[req.params.userId]['company']['bids']) {
+      return res.status(200).json(Storage[req.params.userId]['company']['bids']);
+    }
+    var images = {};
+    if(Storage[req.params.userId]['company']['images']) {
+      images = Storage[req.params.userId]['company']['images'];
+    }
+    var data = {};
+    var keys = Object.keys(images);
+    for(var index in keys) {
+      data[keys[index]] = {
+        amt: 0,
+        maxImpressions: 0,
+        img: images[keys[index]]
+      };
+    }
+    Storage[req.params.userId]['company']['bids'] = data;
+    res.status(200).json(data);
+  });
+
+  router.put('/:userId/bids', function(req, res, next) {
+    Storage[req.params.userId]['company']['bids'] = req.body;
+    console.log(req.body);
+    res.status(200).json({
+      message: 'successfully updated bids'
+    });
+  });
+
   return controller;
 })();
