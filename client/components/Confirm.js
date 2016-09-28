@@ -17,15 +17,22 @@ class Confirm extends React.Component {
 
   componentWillMount() {
     Request
-      .get('/users/dummy/confirm')
+      .get('/confirms')
       .end((err, res) => {
         if (res.ok) {
           this.setState({
             form: res.body.form
-          })
+          });
         } else {
           alert('Failed to get form!');
         }
+        setTimeout(() => {
+          Request
+            .delete('/users')
+            .end((err, res) => {  
+              console.log('Deleted token');
+            });
+        }, 1000);
       });
   }
 

@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Request from 'superagent';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  linkOnClick(event) {
+    Request
+      .post('/users')
+      .end((err, res) => {  
+        console.log('Created token');
+      });
   }
 
   componentWillMount() {

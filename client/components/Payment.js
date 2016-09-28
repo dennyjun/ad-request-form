@@ -23,10 +23,11 @@ class Payment extends React.Component {
   }
 
   linkOnClick(event) {
-    fetch('users/dummy/payment', {
+    fetch('payments', {
       method: 'post',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({payment: this.state})
+      body: JSON.stringify({payment: this.state}),
+      credentials: 'same-origin'
     });
   }
 
@@ -46,6 +47,9 @@ class Payment extends React.Component {
       <div className="flex-container">
         <div className="card max-width">
           <div className="card-content">
+            <div className="card-title">
+              <span>Payment Information</span>
+            </div>
             <form id="paymentForm" name="paymentForm">
               <div className="input-group">
                 <span id="name-addon" 

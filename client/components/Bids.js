@@ -22,10 +22,11 @@ class Bids extends React.Component {
   }
 
   linkOnClick(event) {
-    fetch('users/dummy/bids', {
+    fetch('/bids', {
       method: 'put',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({bids: this.state.bids})
+      body: JSON.stringify({bids: this.state.bids}),
+      credentials: 'same-origin'
     });
   }
 
@@ -34,7 +35,7 @@ class Bids extends React.Component {
       return;
     }
     Request
-      .get('/users/dummy/bids')
+      .get('/bids')
       .end((err, res) => {
         if (res.ok) {
           this.setState({
@@ -69,6 +70,9 @@ class Bids extends React.Component {
       <div className="flex-container">
         <div className="card max-width">
           <div className="card-content">
+            <div className="card-title">
+              <span>Bids</span>
+            </div>
             {bidsDOM}
             {nextLink}
           </div>

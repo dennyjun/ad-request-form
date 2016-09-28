@@ -24,10 +24,11 @@ class Company extends React.Component {
   }
 
   linkOnClick(event) {
-    fetch('users/dummy/company', {
+    fetch('/companies', {
       method: 'post',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({company: this.state})
+      body: JSON.stringify({company: this.state}),
+      credentials: 'same-origin'
     });
   }
 
@@ -47,6 +48,9 @@ class Company extends React.Component {
       <div className="flex-container">
         <div className="card max-width">
           <div className="card-content">
+            <div className="card-title">
+              <span>Company Information</span>
+            </div>
             <form id="companyForm" name="companyForm">
               <div className="input-group">
                 <span id="name-addon" 

@@ -32,7 +32,7 @@ class Images extends React.Component {
       progress: 0
     })
     Request
-      .post('/users/dummy/images/' + file.name.replace(/ /g, '_'))
+      .post('/images/' + file.name.replace(/ /g, '_'))
       .send({file})
       .on('progress', (e) => {
           this.setState({
@@ -60,12 +60,12 @@ class Images extends React.Component {
     this.setState({
       images: this.state.images.concat(files)
     });
-    this.handleFileUpload(files[0]);
+    this.handleFileUpload(files[0]);  
   }
 
   handleRemove(file) {
     Request
-      .delete('/users/dummy/images/' + file.name.replace(/ /g, '_'))
+      .delete('/images/' + file.name.replace(/ /g, '_'))
       .end((err, res) => {
         if (res.ok) {
           for(let i = 0; i < this.state.images.length; ++i) {
@@ -106,6 +106,9 @@ class Images extends React.Component {
       <div className="flex-container">
         <div className="card max-width">
           <div className="card-content">
+            <div className="card-title">
+              <span>Images</span>
+            </div>
             <Dropzone 
               multiple={false}
               accept="image/*" 
