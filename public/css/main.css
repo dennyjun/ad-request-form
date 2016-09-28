@@ -96,11 +96,6 @@ div.link-div {
   display: inline-block; }
   .image-card-div img {
     max-width: 208px; }
-  .image-card-div .pull-right {
-    display: none; }
-
-.image-card-div:hover .pull-right {
-  display: inline-block; }
 
 .image-card-close-button:hover {
   cursor: pointer; }
