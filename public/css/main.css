@@ -6,7 +6,7 @@
 
 html, body, #app {
   padding: 5px;
-  min-width: 350px; }
+  min-width: 300px; }
 
 body {
   background-color: #e9f0f5 !important; }

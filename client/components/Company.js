@@ -112,7 +112,7 @@ class Company extends React.Component {
                 <span id="postal-addon"
                       className="input-group-addon">Postal</span>
                 <input name="postal"
-                       type="text" 
+                       type="number" 
                        className="form-control" 
                        placeholder="Enter postal code" 
                        aria-describedby="postal-addon"
@@ -124,7 +124,7 @@ class Company extends React.Component {
                 <span id="budget-addon"
                       className="input-group-addon">Budget</span>
                 <input name="budget"
-                       type="text" 
+                       type="number" 
                        className="form-control" 
                        placeholder="Enter total bugdet" 
                        aria-describedby="budget-addon"
