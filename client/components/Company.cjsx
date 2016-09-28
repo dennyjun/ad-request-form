@@ -13,6 +13,24 @@ module.exports = React.createClass
     postal: this.props.postal || ''
     budget: this.props.budget || 0
     contactInfo: this.props.contactInfo || {}
+  componentWillMount: ->
+    if !!this.props.disable
+      return
+    setState = this.setState.bind this
+    Request
+      .get '/companies'
+      .end (err, res) ->
+        if res.ok
+          setState
+            name: res.body.company.name || ''
+            address: res.body.company.address || ''
+            city: res.body.company.city || ''
+            state: res.body.company.state || ''
+            postal: res.body.company.postal || ''
+            budget: res.body.company.budget || 0
+            contactInfo: res.body.company.contactInfo || {}
+        else
+          alert 'Failed to get images!'
   linkOnClick: (event) ->
     Request
       .post '/companies'

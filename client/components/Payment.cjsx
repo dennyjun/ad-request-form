@@ -9,6 +9,22 @@ module.exports = React.createClass
     expDate: this.props.expDate || ''
     cvc: this.props.cvc || ''
     name: this.props.name || ''
+  componentWillMount: ->
+    if !!this.props.disable
+      return
+    setState = this.setState.bind this
+    Request
+      .get '/payments'
+      .end (err, res) ->
+        if res.ok
+          payment = res.body.payment
+          setState
+            creditCardNum: payment.creditCardNum || ''
+            expDate: payment.expDate || ''
+            cvc: payment.cvc || ''
+            name: payment.name || ''
+        else
+          alert 'Failed to get payment!'
   linkOnClick: (event) ->
     Request
       .post '/payments'

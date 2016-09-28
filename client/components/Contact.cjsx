@@ -5,6 +5,9 @@ module.exports = React.createClass
   displayName: 'Contact'
   getInitialState: ->
     contact: this.props.contact || {}
+  componentWillReceiveProps: (nextProps) ->
+    this.props.contact = nextProps.contact
+    this.setState contact: nextProps.contact
   handleChange: (event) ->
     this.state.contact[event.target.name] = event.target.value;
     this.setState contact: this.state.contact

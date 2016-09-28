@@ -11,5 +11,9 @@ module.exports = (() ->
     res.status(200).json 
       message: 'successfully added payment information'
 
+  router.get '/', (req, res, next) ->
+    payment = Storage[req.cookies.token]['payment'] || {}
+    res.status(200).json payment: payment
+
   return controller
 )()

@@ -10,6 +10,22 @@ module.exports = React.createClass
     images: [],
     progress: 0,
     uploading: false
+  componentWillMount: ->
+    if !!this.props.disable
+      return
+    setState = this.setState.bind this
+    Request
+      .get '/images'
+      .end (err, res) ->
+        if res.ok
+          images = []
+          keys = Object.keys(res.body)
+          for key of keys
+            images.push res.body[keys[key]]
+          setState
+            images: images
+        else
+          alert 'Failed to get images!'
   handleChange: (event) ->
     this.state[event.target.name] = event.target.value
     this.setState this.state
