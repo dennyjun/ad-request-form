@@ -5,7 +5,7 @@ var config = {
   debug: process.env.NODE_ENV !== 'production',
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    './client/main'
+    './client/main.cjsx'
   ],
   output: {
     path: path.join(__dirname, 'public', 'js'),
@@ -25,6 +25,14 @@ var config = {
         test: /\.js$/, 
         exclude: /node_modules/, 
         loaders: ['babel-loader'] 
+      },
+      { 
+        test: /\.cjsx$/, 
+        loaders: ['coffee', 'cjsx']
+      },
+      { 
+        test: /\.coffee$/, 
+        loader: 'coffee' 
       }
     ]
   }

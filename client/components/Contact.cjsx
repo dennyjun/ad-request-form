@@ -1,28 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router';
+React = require 'react'
+Link = require('react-router').Link
 
-class Contact extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contact: props.contact || {}
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
+module.exports = React.createClass
+  displayName: 'Contact'
+  getInitialState: ->
+    contact: this.props.contact || {}
+  handleChange: (event) ->
     this.state.contact[event.target.name] = event.target.value;
-    this.setState({
-      contact: this.state.contact
-    });
-  }
-
-  componentWillMount() {
-    // before dom has been rendered
-  }
-
-  render() {
+    this.setState contact: this.state.contact
+  render: ->
     return (
       <div className="flex-container">
         <div className="max-width">
@@ -79,12 +65,4 @@ class Contact extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  componentDidMount() {
-    // after dom has been rendered
-  }
-}
-
-export default Contact;
+    )

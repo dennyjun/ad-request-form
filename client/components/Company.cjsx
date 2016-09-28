@@ -1,57 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router';
-import Contact from './Contact';
+React = require 'react'
+Link = require('react-router').Link
+Request = require 'superagent'
+Contact = require './Contact.cjsx'
 
-class Company extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: props.name || '',
-      address: props.address || '',
-      city: props.city || '',
-      state: props.state || '',
-      postal: props.postal || '',
-      budget: props.budget || 0,
-      contactInfo: props.contactInfo || {}
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.linkOnClick = this.linkOnClick.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  linkOnClick(event) {
-    fetch('/companies', {
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({company: this.state}),
-      credentials: 'same-origin'
-    }).then((response) => {
-      if(response.ok) {
-        document.getElementsByName('transition')[0].click();
-      } else {
-        console.error('Failed to save company information');
-      }
-    });
-  }
-
-  componentWillMount() {
-    // before dom has been rendered
-  }
-
-  render() {
-    const nextLink = this.props.disable
-      ? null
-      : (<div className="link-div">
-           <button type="button"
-                   onClick={this.linkOnClick} 
-                   className="btn btn-primary">Next</button>
-         </div>);
+module.exports = React.createClass
+  displayName: 'Company'
+  getInitialState: -> 
+    name: this.props.name || ''
+    address: this.props.address || ''
+    city: this.props.city || ''
+    state: this.props.state || ''
+    postal: this.props.postal || ''
+    budget: this.props.budget || 0
+    contactInfo: this.props.contactInfo || {}
+  linkOnClick: (event) ->
+    Request
+      .post '/companies'
+      .send {company: this.state}
+      .set('Accept', 'application/json')
+      .end (err, res) ->
+        if res.ok
+          document.getElementsByName('transition')[0].click()
+        else
+          console.error 'Failed to save company information'
+  handleChange: (event) ->
+    this.state[event.target.name] = event.target.value
+    this.setState this.state
+  render: ->
+    nextLink = if this.props.disable then null else 
+      (<div className="link-div">
+        <button type="button"
+                onClick={this.linkOnClick} 
+                className="btn btn-primary">Next</button>
+      </div>)
     return (
       <div className="flex-container">
         <div className="card max-width">
@@ -142,12 +123,4 @@ class Company extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  componentDidMount() {
-    // after dom has been rendered
-  }
-}
-
-export default Company;
+    )

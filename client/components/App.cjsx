@@ -1,29 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router';
-import Request from 'superagent';
+React = require 'react'
+Link = require('react-router').Link
+Request = require 'superagent'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  linkOnClick(event) {
+module.exports = React.createClass
+  displayName: 'App'
+  linkOnClick: (event) ->
     Request
-      .post('/users')
-      .end((err, res) => {
-        if(res.ok) {
-          document.getElementsByName('transition')[0].click();
-        } else {
-          console.error('Failed to create token');
-        }
-      });
-  }
-
-  componentWillMount() {
-    // before dom has been rendered
-  }
-
-  render() {
+      .post '/users'
+      .end (err, res) ->
+        if res.ok
+          document.getElementsByName('transition')[0].click()
+        else
+          console.error 'Failed to create token'
+  render: ->
     return (
       <div className="flex-container">
         <div className="card max-width">
@@ -45,12 +34,4 @@ class App extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  componentDidMount() {
-    // after dom has been rendered
-  }
-}
-
-export default App;
+    )

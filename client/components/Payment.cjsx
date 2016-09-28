@@ -1,54 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router';
+React = require 'react'
+Link = require('react-router').Link
+Request = require 'superagent'
 
-class Payment extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      creditCardNum: props.creditCardNum || '',
-      expDate: props.expDate || '',
-      cvc: props.cvc || '',
-      name: props.name || ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.linkOnClick = this.linkOnClick.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  linkOnClick(event) {
-    fetch('payments', {
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({payment: this.state}),
-      credentials: 'same-origin'
-    }).then((response) => {
-      if(response.ok) {
-        document.getElementsByName('transition')[0].click();
-      } else {
-        console.error('Failed to submit payment information');
-      }
-    });
-  }
-
-  componentWillMount() {
-    // before dom has been rendered
-  }
-
-  render() {
-    const nextLink = this.props.disable
-      ? null
-      : (<div className="link-div">
-           <button type="button"
-                   onClick={this.linkOnClick} 
-                   className="btn btn-primary">Next</button>
-         </div>);
+module.exports = React.createClass
+  displayName: 'Payment'
+  getInitialState: -> 
+    creditCardNum: this.props.creditCardNum || ''
+    expDate: this.props.expDate || ''
+    cvc: this.props.cvc || ''
+    name: this.props.name || ''
+  linkOnClick: (event) ->
+    Request
+      .post '/payments'
+      .send {payment: this.state}
+      .set('Accept', 'application/json')
+      .end (err, res) ->
+        if res.ok
+          document.getElementsByName('transition')[0].click()
+        else
+          console.error 'Failed to submit payment information'
+  handleChange: (event) ->
+    this.state[event.target.name] = event.target.value
+    this.setState this.state
+  render: ->
+    nextLink = if this.props.disable then null else 
+      (<div className="link-div">
+        <button type="button"
+                onClick={this.linkOnClick} 
+                className="btn btn-primary">Next</button>
+      </div>)
     return (
       <div className="flex-container">
         <div className="card max-width">
@@ -113,12 +93,4 @@ class Payment extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  componentDidMount() {
-    // after dom has been rendered
-  }
-}
-
-export default Payment;
+    )

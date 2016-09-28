@@ -1,32 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router';
-import Dropzone from 'react-dropzone';
-import Request from 'superagent';
-import Image from './Image';
+React = require 'react'
+Link = require('react-router').Link
+Request = require 'superagent'
+Image = require './Image.cjsx'
 
-class Bid extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      bid: props.bid || {}
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.state.bid[event.target.name] = event.target.value;
-    this.setState({
+module.exports = React.createClass
+  displayName: 'Bid'
+  getInitialState: -> 
+    bid: this.props.bid || {}
+  handleChange: (event) ->
+    this.state.bid[event.target.name] = event.target.value
+    this.setState
       bid: this.state.bid
-    });
-  }
-
-  componentWillMount() {
-    // before dom has been rendered
-  }
-
-  render() {
+  render: ->
     return (
       <div className="card bid-card-div">
         <div className="card-content">
@@ -59,12 +44,4 @@ class Bid extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  componentDidMount() {
-    // after dom has been rendered
-  }
-}
-
-export default Bid;
+    )
