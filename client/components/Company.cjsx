@@ -30,7 +30,7 @@ module.exports = React.createClass
             budget: res.body.company.budget || 0
             contactInfo: res.body.company.contactInfo || {}
         else
-          alert 'Failed to get images!'
+          alert 'Failed to get company information!'
   linkOnClick: (event) ->
     Request
       .post '/companies'
