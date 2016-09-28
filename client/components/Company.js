@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Contact from './Contact';
 
 class Company extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class Company extends React.Component {
       city: props.city || '',
       state: props.state || '',
       postal: props.postal || '',
-      budget: props.budget || 0
+      budget: props.budget || 0,
+      contactInfo: props.contactInfo || {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -130,6 +132,8 @@ class Company extends React.Component {
                        onChange={this.handleChange}
                        disabled={!!this.props.disable}/>
               </div>
+              <Contact contact={this.state.contactInfo} 
+                       disable={!!this.props.disable} />
               {nextLink}
               <Link name="transition" 
                  style={{display: "none"}}
