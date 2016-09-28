@@ -12,12 +12,10 @@ const Image = ({file, handleRemove}) => {
   return (
     <div className="card image-card-div">
       {removeButton}
-      <div>
-        <span className="card-title">
-          {file.name}
-        </span>
-      </div>
       <div className="card-content">      
+        <div className="card-title img-file-name">
+          {file.name}
+        </div>
         <img src={file.preview} />
       </div>
     </div>

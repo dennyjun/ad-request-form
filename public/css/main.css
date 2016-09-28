@@ -5,14 +5,15 @@
   height: 100%; }
 
 html, body, #app {
-  padding: 5px; }
+  padding: 5px;
+  min-width: 350px; }
 
 body {
   background-color: #e9f0f5 !important; }
 
 @media only screen and (min-width: 640px) {
   #app {
-    width: 50%;
+    width: 60%;
     margin: auto; } }
 
 div.link-div {
@@ -103,6 +104,9 @@ div.link-div {
 
 .image-card-close-button:hover {
   cursor: pointer; }
+
+.img-file-name {
+  word-break: break-word; }
 
 .drop-zone-div > div {
   width: 100% !important;
