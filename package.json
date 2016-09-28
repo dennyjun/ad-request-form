@@ -2,15 +2,15 @@
   "name": "ad-request-form",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "server/server.coffee",
   "scripts": {
     "build": "webpack --display-error-details",
     "deploy": "npm test && git push heroku master",
     "postinstall": "npm run build",
     "webpack-watch": "webpack --watch",
-    "start": "node server/server.js",
+    "start": "node server/server.coffee",
     "test": "npm run test:client && npm run test:server",
-    "nodemon": "nodemon --ignore 'client/*.js' --ignore 'public/js/bundle.js' --ignore 'node_modules' server/server.js",
+    "nodemon": "nodemon --ignore 'client/*.js' --ignore 'public/js/bundle.js' --ignore 'node_modules' server/server.coffee",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run nodemon\"",
     "test:client": "mocha test/client --recursive --compilers js:babel-register",
     "test:server": "mocha test/server --recursive --compilers js:babel-register"
