@@ -120,7 +120,8 @@ class Images extends React.Component {
             <div className="link-div">
               <Link onClick={this.linkOnClick} 
                     to="/bids" 
-                    className="btn btn-primary">Next</Link>
+                    className="btn btn-primary"
+                    disabled={this.state.uploading}>Next</Link>
             </div>
           </div>
         </div>

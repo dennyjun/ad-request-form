@@ -28,6 +28,12 @@ class Payment extends React.Component {
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({payment: this.state}),
       credentials: 'same-origin'
+    }).then((response) => {
+      if(response.ok) {
+        document.getElementsByName('transition')[0].click();
+      } else {
+        console.error('Failed to submit payment information');
+      }
     });
   }
 
@@ -39,9 +45,9 @@ class Payment extends React.Component {
     const nextLink = this.props.disable
       ? null
       : (<div className="link-div">
-           <Link onClick={this.linkOnClick} 
-                 to="/confirm" 
-                 className="btn btn-primary">Next</Link>
+           <button type="button"
+                   onClick={this.linkOnClick} 
+                   className="btn btn-primary">Next</button>
          </div>);
     return (
       <div className="flex-container">
@@ -100,6 +106,9 @@ class Payment extends React.Component {
                        disabled={!!this.props.disable}/>
               </div>
               {nextLink}
+              <Link name="transition" 
+                 style={{display: "none"}}
+                 to="/confirm" />
             </form>
           </div>
         </div>

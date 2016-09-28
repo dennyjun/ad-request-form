@@ -27,6 +27,12 @@ class Bids extends React.Component {
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({bids: this.state.bids}),
       credentials: 'same-origin'
+    }).then((response) => {
+      if(response.ok) {
+        document.getElementsByName('transition')[0].click();
+      } else {
+        console.error('Failed update payment information');
+      }
     });
   }
 
@@ -62,9 +68,9 @@ class Bids extends React.Component {
     const nextLink = this.props.disable
       ? null
       : (<div className="link-div">
-           <Link onClick={this.linkOnClick} 
-                 to="/payment" 
-                 className="btn btn-primary">Next</Link>
+           <button type="button"
+                   onClick={this.linkOnClick} 
+                   className="btn btn-primary">Next</button>
          </div>);
     return (
       <div className="flex-container">
@@ -75,6 +81,9 @@ class Bids extends React.Component {
             </div>
             {bidsDOM}
             {nextLink}
+            <Link name="transition" 
+                 style={{display: "none"}}
+                 to="/payment" />
           </div>
         </div>
       </div>

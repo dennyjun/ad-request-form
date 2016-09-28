@@ -26,13 +26,9 @@ class Confirm extends React.Component {
         } else {
           alert('Failed to get form!');
         }
-        setTimeout(() => {
-          Request
-            .delete('/users')
-            .end((err, res) => {  
-              console.log('Deleted token');
-            });
-        }, 1000);
+        Request
+          .delete('/users')
+          .end((err, res) => {});
       });
   }
 

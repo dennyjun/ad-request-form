@@ -29,6 +29,12 @@ class Company extends React.Component {
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({company: this.state}),
       credentials: 'same-origin'
+    }).then((response) => {
+      if(response.ok) {
+        document.getElementsByName('transition')[0].click();
+      } else {
+        console.error('Failed to save company information');
+      }
     });
   }
 
@@ -40,9 +46,9 @@ class Company extends React.Component {
     const nextLink = this.props.disable
       ? null
       : (<div className="link-div">
-           <Link onClick={this.linkOnClick} 
-                 to="/images" 
-                 className="btn btn-primary">Next</Link>
+           <button type="button"
+                   onClick={this.linkOnClick} 
+                   className="btn btn-primary">Next</button>
          </div>);
     return (
       <div className="flex-container">
@@ -125,6 +131,9 @@ class Company extends React.Component {
                        disabled={!!this.props.disable}/>
               </div>
               {nextLink}
+              <Link name="transition" 
+                 style={{display: "none"}}
+                 to="/images" />
             </form>
           </div>
         </div>
