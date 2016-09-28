@@ -33,8 +33,8 @@ module.exports = React.createClass
       <div className="flex-container">
         <div className="max-width">
           {company}
-          {bids}
           {payment}
+          {bids}
         </div>
       </div>
     )
