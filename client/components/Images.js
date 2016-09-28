@@ -64,6 +64,9 @@ class Images extends React.Component {
   }
 
   handleRemove(file) {
+    this.setState({
+      uploading: true
+    });
     Request
       .delete('/images/' + file.name.replace(/ /g, '_'))
       .end((err, res) => {
@@ -80,6 +83,9 @@ class Images extends React.Component {
         } else {
           alert('Failed to delete ' + file.name + '!');
         }
+        this.setState({
+          uploading: false
+        });
       });
   }
 

@@ -28,7 +28,7 @@ module.exports = (function() {
         message: 'nothing to delete'
       })
     } else {
-      Storage[req.cookies.token]['images'][req.params.imageId] = undefined;
+      delete Storage[req.cookies.token]['images'][req.params.imageId];
       res.status(200).json({
         message: 'successfully deleted image' + req.params.imageId
       });
