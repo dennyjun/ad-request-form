@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use(express.static(__dirname + '/../node_modules/jquery'));
 app.use(express.static(__dirname + '/../node_modules/bootstrap'));
-app.use(sass({ 
+app.use(sass({
   src: path.join(__dirname, '/../public'), 
   dest: path.join(__dirname, '/../public') 
 }));

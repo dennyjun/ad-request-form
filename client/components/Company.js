@@ -15,11 +15,20 @@ class Company extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.linkOnClick = this.linkOnClick.bind(this);
   }
 
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
+    });
+  }
+
+  linkOnClick(event) {
+    fetch('users/dummy/company', {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({company: this.state})
     });
   }
 
@@ -29,7 +38,7 @@ class Company extends React.Component {
 
   render() {
     return (
-      <form action="users/dummy/company" method="post">
+      <form name="companyForm">
         <div className="input-group">
           <span id="name-addon" 
                 className="input-group-addon">Name</span>
@@ -96,7 +105,9 @@ class Company extends React.Component {
                  value={this.state.budget}
                  onChange={this.handleChange}/>
         </div>
-        <Link to="/images" className="btn btn-primary">Next</Link>
+        <Link onClick={this.linkOnClick} 
+              to="/images" 
+              className="btn btn-primary">Next</Link>
       </form>
     );
   }

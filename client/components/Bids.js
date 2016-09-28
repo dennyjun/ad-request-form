@@ -1,16 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-class Company extends React.Component {
+class Bids extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
-      address: '',
-      city: '',
-      state: '',
-      postal: ''
+      bids: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,4 +36,4 @@ class Company extends React.Component {
   }
 }
 
-export default Company;
+export default Bids;

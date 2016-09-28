@@ -33,7 +33,7 @@ class Images extends React.Component {
     })
     Request
       .post('/users/dummy/images/' + file.name.replace(/ /g, '_'))
-      .send({ body: file })
+      .send({file})
       .on('progress', (e) => {
           console.log(e.percent)
           this.setState({
@@ -65,15 +65,23 @@ class Images extends React.Component {
   }
 
   handleRemove(file) {
-    for(let i = 0; i < this.state.images.length; ++i) {
-      if(file === this.state.images[i]) {
-        this.state.images.splice(i, 1);
-        break;
-      }
-    }
-    this.setState({
-      images: this.state.images
-    })
+    Request
+      .delete('/users/dummy/images/' + file.name.replace(/ /g, '_'))
+      .end((err, res) => {
+        if (res.ok) {
+          for(let i = 0; i < this.state.images.length; ++i) {
+            if(file === this.state.images[i]) {
+              this.state.images.splice(i, 1);
+              break;
+            }
+          }
+          this.setState({
+            images: this.state.images
+          });
+        } else {
+          alert('Failed to delete ' + file.name + '!');
+        }
+      });
   }
 
   render() {
