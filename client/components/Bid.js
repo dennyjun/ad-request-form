@@ -42,7 +42,8 @@ class Bid extends React.Component {
                    placeholder="Enter CPM bid" 
                    aria-describedby="bid-addon"
                    value={this.state.bid.amt}
-                   onChange={this.handleChange}/>
+                   onChange={this.handleChange}
+                   disabled={!!this.props.disable}/>
           </div>
           <div className="input-group">
             <span id="maxImpressions-addon" 
@@ -53,7 +54,8 @@ class Bid extends React.Component {
                    placeholder="Enter Max Impressions" 
                    aria-describedby="maxImpressions-addon"
                    value={this.state.bid.maxImpressions}
-                   onChange={this.handleChange}/>
+                   onChange={this.handleChange}
+                   disabled={!!this.props.disable}/>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ class Bids extends React.Component {
     super(props);
 
     this.state = {
-      bids: {}
+      bids: props.bids || {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,6 +30,9 @@ class Bids extends React.Component {
   }
 
   componentWillMount() {
+    if(!!this.props.disable) {
+      return;
+    }
     Request
       .get('/users/dummy/bids')
       .end((err, res) => {
@@ -50,18 +53,20 @@ class Bids extends React.Component {
         return (
           <Bid 
             key={index} 
-            bid={bid} />
+            bid={bid}
+            disable={!!this.props.disable} />
         );
       }
     );
+    const nextLink = this.props.disable
+      ? null
+      : (<div><Link onClick={this.linkOnClick} 
+              to="/payment" 
+              className="btn btn-primary">Next</Link></div>);
     return (
       <div>
         {bidsDOM}
-        <div>
-          <Link onClick={this.linkOnClick}
-                to="/payment" 
-                className="btn btn-primary">Next</Link>
-        </div>
+        {nextLink}
       </div>
     );
   }

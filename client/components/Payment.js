@@ -6,10 +6,10 @@ class Payment extends React.Component {
     super(props);
 
     this.state = {
-      creditCardNum: '',
-      expDate: '',
-      cvc: '',
-      name: ''
+      creditCardNum: props.creditCardNum || '',
+      expDate: props.expDate || '',
+      cvc: props.cvc || '',
+      name: props.name || ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,6 +35,11 @@ class Payment extends React.Component {
   }
 
   render() {
+    const nextLink = this.props.disable
+      ? null
+      : (<Link onClick={this.linkOnClick} 
+              to="/confirm" 
+              className="btn btn-primary">Next</Link>);
     return (
       <form name="paymentForm">
         <div className="input-group">
@@ -46,7 +51,8 @@ class Payment extends React.Component {
                  placeholder="Enter name" 
                  aria-describedby="name-addon"
                  value={this.state.name}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="creditCardNum-addon"
@@ -57,7 +63,8 @@ class Payment extends React.Component {
                  placeholder="Enter Credit Card #" 
                  aria-describedby="creditCardNum-addon"
                  value={this.state.creditCardNum}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="cvc-addon"
@@ -68,7 +75,8 @@ class Payment extends React.Component {
                  placeholder="Enter CVC" 
                  aria-describedby="cvc-addon"
                  value={this.state.cvc}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="expDate-addon"
@@ -79,11 +87,10 @@ class Payment extends React.Component {
                  placeholder="Enter Expiration Date" 
                  aria-describedby="expDate-addon"
                  value={this.state.expDate}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
-        <Link onClick={this.linkOnClick} 
-              to="/confirm" 
-              className="btn btn-primary">Next</Link>
+        {nextLink}
       </form>
     );
   }

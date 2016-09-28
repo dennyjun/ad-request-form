@@ -4,14 +4,13 @@ import { Link } from 'react-router';
 class Company extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      name: '',
-      address: '',
-      city: '',
-      state: '',
-      postal: '',
-      budget: 0
+      name: props.name || '',
+      address: props.address || '',
+      city: props.city || '',
+      state: props.state || '',
+      postal: props.postal || '',
+      budget: props.budget || 0
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,6 +36,11 @@ class Company extends React.Component {
   }
 
   render() {
+    const nextLink = this.props.disable
+      ? null
+      : (<Link onClick={this.linkOnClick} 
+              to="/images" 
+              className="btn btn-primary">Next</Link>);
     return (
       <form name="companyForm">
         <div className="input-group">
@@ -48,7 +52,8 @@ class Company extends React.Component {
                  placeholder="Enter name" 
                  aria-describedby="name-addon"
                  value={this.state.name}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="address-addon"
@@ -59,7 +64,8 @@ class Company extends React.Component {
                  placeholder="Enter address" 
                  aria-describedby="address-addon"
                  value={this.state.address}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="city-addon"
@@ -70,7 +76,8 @@ class Company extends React.Component {
                  placeholder="Enter city" 
                  aria-describedby="city-addon"
                  value={this.state.city}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="state-addon"
@@ -81,7 +88,8 @@ class Company extends React.Component {
                  placeholder="Enter state" 
                  aria-describedby="state-addon"
                  value={this.state.state}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="postal-addon"
@@ -92,7 +100,8 @@ class Company extends React.Component {
                  placeholder="Enter postal code" 
                  aria-describedby="postal-addon"
                  value={this.state.postal}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
         <div className="input-group">
           <span id="budget-addon"
@@ -103,11 +112,10 @@ class Company extends React.Component {
                  placeholder="Enter total bugdet" 
                  aria-describedby="budget-addon"
                  value={this.state.budget}
-                 onChange={this.handleChange}/>
+                 onChange={this.handleChange}
+                 disabled={!!this.props.disable}/>
         </div>
-        <Link onClick={this.linkOnClick} 
-              to="/images" 
-              className="btn btn-primary">Next</Link>
+        {nextLink}
       </form>
     );
   }
