@@ -44,7 +44,7 @@ class Confirm extends React.Component {
       : null;
     return (
       <div className="flex-container">
-        <div>
+        <div className="max-width">
           {company}
           {bids}
           {payment}
