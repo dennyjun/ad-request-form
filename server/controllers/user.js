@@ -73,10 +73,16 @@ module.exports = (function() {
   });
 
   router.put('/:userId/bids', function(req, res, next) {
-    Storage[req.params.userId]['company']['bids'] = req.body;
-    console.log(req.body);
+    Storage[req.params.userId]['company']['bids'] = req.body.bids;
     res.status(200).json({
       message: 'successfully updated bids'
+    });
+  });
+
+  router.post('/:userId/payment', function(req, res, next) {
+    Storage[req.params.userId]['company']['payment'] = req.body.payment;
+    res.status(200).json({
+      message: 'successfully added payment information'
     });
   });
 

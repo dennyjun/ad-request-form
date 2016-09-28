@@ -7,6 +7,7 @@ import App from './components/App';
 import Company from './components/Company';
 import Images from './components/Images';
 import Bids from './components/Bids';
+import Payment from './components/Payment';
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Route path="/company" component={Company} />
     <Route path="/images" component={Images} />
     <Route path="/bids" component={Bids} />
+    <Route path="/payment" component={Payment} />
     <Route path="*" component={NotFound} />
   </Router>,
   document.getElementById('app')

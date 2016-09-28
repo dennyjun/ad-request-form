@@ -25,7 +25,7 @@ class Bids extends React.Component {
     fetch('users/dummy/bids', {
       method: 'put',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(this.state.bids)
+      body: JSON.stringify({bids: this.state.bids})
     });
   }
 
@@ -44,15 +44,16 @@ class Bids extends React.Component {
   }
 
   render() {
-    const bidsDOM = Object.keys(this.state.bids).map((key, index) => {
-      const bid = this.state.bids[key];
-      return (
-
-        <Bid 
-          key={index} 
-          bid={bid} />
-      );
-    });
+    const bidsDOM = 
+      Object.keys(this.state.bids).map((key, index) => {
+        const bid = this.state.bids[key];
+        return (
+          <Bid 
+            key={index} 
+            bid={bid} />
+        );
+      }
+    );
     return (
       <div>
         {bidsDOM}
