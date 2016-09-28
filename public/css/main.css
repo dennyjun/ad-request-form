@@ -95,7 +95,8 @@ div.link-div {
   margin: 5px;
   display: inline-block; }
   .image-card-div img {
-    max-width: 208px; }
+    max-width: 208px;
+    cursor: pointer; }
 
 .image-card-close-button:hover {
   cursor: pointer; }

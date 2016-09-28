@@ -2,6 +2,8 @@ React = require 'react'
 
 module.exports = React.createClass
   displayName: 'Image'
+  onImgClick: (event) ->
+    window.open(this.props.file.preview);
   render: ->
     removeButton = if !this.props.handleRemove then null else 
       (<div className="pull-right image-card-close-button" 
@@ -17,7 +19,8 @@ module.exports = React.createClass
           <div className="card-title img-file-name">
             {this.props.file.name}
           </div>
-          <img src={this.props.file.preview} />
+          <img onClick={this.onImgClick} 
+               src={this.props.file.preview} />
         </div>
       </div>
     )
