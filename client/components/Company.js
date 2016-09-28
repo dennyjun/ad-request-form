@@ -38,85 +38,93 @@ class Company extends React.Component {
   render() {
     const nextLink = this.props.disable
       ? null
-      : (<Link onClick={this.linkOnClick} 
-              to="/images" 
-              className="btn btn-primary">Next</Link>);
+      : (<div className="link-div">
+           <Link onClick={this.linkOnClick} 
+                 to="/images" 
+                 className="btn btn-primary">Next</Link>
+         </div>);
     return (
-      <form name="companyForm">
-        <div className="input-group">
-          <span id="name-addon" 
-                className="input-group-addon">Name</span>
-          <input name="name"
-                 type="text" 
-                 className="form-control" 
-                 placeholder="Enter name" 
-                 aria-describedby="name-addon"
-                 value={this.state.name}
-                 onChange={this.handleChange}
-                 disabled={!!this.props.disable}/>
+      <div className="flex-container">
+        <div className="card max-width">
+          <div className="card-content">
+            <form id="companyForm" name="companyForm">
+              <div className="input-group">
+                <span id="name-addon" 
+                      className="input-group-addon">Name</span>
+                <input name="name"
+                       type="text" 
+                       className="form-control" 
+                       placeholder="Enter name" 
+                       aria-describedby="name-addon"
+                       value={this.state.name}
+                       onChange={this.handleChange}
+                       disabled={!!this.props.disable}/>
+              </div>
+              <div className="input-group">
+                <span id="address-addon"
+                      className="input-group-addon">Address</span>
+                <input name="address"
+                       type="text" 
+                       className="form-control" 
+                       placeholder="Enter address" 
+                       aria-describedby="address-addon"
+                       value={this.state.address}
+                       onChange={this.handleChange}
+                       disabled={!!this.props.disable}/>
+              </div>
+              <div className="input-group">
+                <span id="city-addon"
+                      className="input-group-addon">City</span>
+                <input name="city"
+                       type="text" 
+                       className="form-control" 
+                       placeholder="Enter city" 
+                       aria-describedby="city-addon"
+                       value={this.state.city}
+                       onChange={this.handleChange}
+                       disabled={!!this.props.disable}/>
+              </div>
+              <div className="input-group">
+                <span id="state-addon"
+                      className="input-group-addon">State</span>
+                <input name="state"
+                       type="text" 
+                       className="form-control" 
+                       placeholder="Enter state" 
+                       aria-describedby="state-addon"
+                       value={this.state.state}
+                       onChange={this.handleChange}
+                       disabled={!!this.props.disable}/>
+              </div>
+              <div className="input-group">
+                <span id="postal-addon"
+                      className="input-group-addon">Postal</span>
+                <input name="postal"
+                       type="text" 
+                       className="form-control" 
+                       placeholder="Enter postal code" 
+                       aria-describedby="postal-addon"
+                       value={this.state.postal}
+                       onChange={this.handleChange}
+                       disabled={!!this.props.disable}/>
+              </div>
+              <div className="input-group">
+                <span id="budget-addon"
+                      className="input-group-addon">Budget</span>
+                <input name="budget"
+                       type="text" 
+                       className="form-control" 
+                       placeholder="Enter total bugdet" 
+                       aria-describedby="budget-addon"
+                       value={this.state.budget}
+                       onChange={this.handleChange}
+                       disabled={!!this.props.disable}/>
+              </div>
+              {nextLink}
+            </form>
+          </div>
         </div>
-        <div className="input-group">
-          <span id="address-addon"
-                className="input-group-addon">Address</span>
-          <input name="address"
-                 type="text" 
-                 className="form-control" 
-                 placeholder="Enter address" 
-                 aria-describedby="address-addon"
-                 value={this.state.address}
-                 onChange={this.handleChange}
-                 disabled={!!this.props.disable}/>
-        </div>
-        <div className="input-group">
-          <span id="city-addon"
-                className="input-group-addon">City</span>
-          <input name="city"
-                 type="text" 
-                 className="form-control" 
-                 placeholder="Enter city" 
-                 aria-describedby="city-addon"
-                 value={this.state.city}
-                 onChange={this.handleChange}
-                 disabled={!!this.props.disable}/>
-        </div>
-        <div className="input-group">
-          <span id="state-addon"
-                className="input-group-addon">State</span>
-          <input name="state"
-                 type="text" 
-                 className="form-control" 
-                 placeholder="Enter state" 
-                 aria-describedby="state-addon"
-                 value={this.state.state}
-                 onChange={this.handleChange}
-                 disabled={!!this.props.disable}/>
-        </div>
-        <div className="input-group">
-          <span id="postal-addon"
-                className="input-group-addon">Postal</span>
-          <input name="postal"
-                 type="text" 
-                 className="form-control" 
-                 placeholder="Enter postal code" 
-                 aria-describedby="postal-addon"
-                 value={this.state.postal}
-                 onChange={this.handleChange}
-                 disabled={!!this.props.disable}/>
-        </div>
-        <div className="input-group">
-          <span id="budget-addon"
-                className="input-group-addon">Budget</span>
-          <input name="budget"
-                 type="text" 
-                 className="form-control" 
-                 placeholder="Enter total bugdet" 
-                 aria-describedby="budget-addon"
-                 value={this.state.budget}
-                 onChange={this.handleChange}
-                 disabled={!!this.props.disable}/>
-        </div>
-        {nextLink}
-      </form>
+      </div>
     );
   }
 

@@ -103,17 +103,23 @@ class Images extends React.Component {
         </div>)
       : null;
     return (
-      <div>
-        <Dropzone 
-          multiple={false}
-          accept="image/*" 
-          onDrop={this.onDrop}>
-          <div>Try dropping some files here, or click to select files to upload.</div>
-        </Dropzone>
-        {progressbar}
-        {files}
-        <div>
-          <Link to="/bids" className="btn btn-primary">Next</Link>
+      <div className="flex-container">
+        <div className="card max-width">
+          <div className="card-content">
+            <Dropzone 
+              multiple={false}
+              accept="image/*" 
+              onDrop={this.onDrop}>
+              <div>Try dropping some files here, or click to select files to upload.</div>
+            </Dropzone>
+            {progressbar}
+            {files}
+            <div className="link-div">
+              <Link onClick={this.linkOnClick} 
+                    to="/bids" 
+                    className="btn btn-primary">Next</Link>
+            </div>
+          </div>
         </div>
       </div>
     );

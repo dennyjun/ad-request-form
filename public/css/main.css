@@ -1,11 +1,40 @@
+.max-width, html, body, #app, div.link-div, .flex-container {
+  width: 100%; }
+
+.max-height, html, body, #app {
+  height: 100%; }
+
+html, body, #app {
+  padding: 5px; }
+
+body {
+  background-color: #e9f0f5 !important; }
+
+@media only screen and (min-width: 640px) {
+  #app {
+    width: 50%;
+    margin: auto; } }
+
+div.link-div {
+  text-align: center;
+  margin-top: 10px; }
+  div.link-div a {
+    width: 50%; }
+
+.flex-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center; }
+
 .card {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   margin-top: 10px;
   box-sizing: border-box;
   border-radius: 2px;
-  background-clip: padding-box; }
+  background-clip: padding-box;
+  background-color: white; }
 
-.card span.card-title {
+.card .card-title {
   font-size: 24px;
   font-weight: 300;
   text-transform: uppercase; }
@@ -35,6 +64,10 @@
 .card .card-content p {
   margin: 0;
   color: inherit; }
+
+.card .card-content div.card-title {
+  line-height: 48px;
+  text-align: center; }
 
 .card .card-content span.card-title {
   line-height: 48px; }
@@ -75,3 +108,34 @@
   max-width: 285px;
   margin: 5px;
   display: inline-block; }
+  .bid-card-div .input-group {
+    margin-bottom: 2px;
+    width: 100%; }
+  .bid-card-div .input-group-addon {
+    width: 135px;
+    text-align: right;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: white; }
+
+#companyForm .input-group {
+  margin-bottom: 2px;
+  width: 100%; }
+
+#companyForm .input-group-addon {
+  width: 100px;
+  text-align: right;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: white; }
+
+#paymentForm .input-group {
+  margin-bottom: 2px;
+  width: 100%; }
+
+#paymentForm .input-group-addon {
+  width: 120px;
+  text-align: right;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: white; }

@@ -60,13 +60,19 @@ class Bids extends React.Component {
     );
     const nextLink = this.props.disable
       ? null
-      : (<div><Link onClick={this.linkOnClick} 
-              to="/payment" 
-              className="btn btn-primary">Next</Link></div>);
+      : (<div className="link-div">
+           <Link onClick={this.linkOnClick} 
+                 to="/payment" 
+                 className="btn btn-primary">Next</Link>
+         </div>);
     return (
-      <div>
-        {bidsDOM}
-        {nextLink}
+      <div className="flex-container">
+        <div className="card max-width">
+          <div className="card-content">
+            {bidsDOM}
+            {nextLink}
+          </div>
+        </div>
       </div>
     );
   }

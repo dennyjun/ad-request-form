@@ -30,7 +30,6 @@ class Confirm extends React.Component {
   }
 
   render() {
-    console.log('form', this.state.form.company);
     const company = this.state.form.company
       ? (<Company {...this.state.form.company} disable={true} />)
       : null;
@@ -41,10 +40,12 @@ class Confirm extends React.Component {
       ? (<Payment {...this.state.form.payment} disable={true} />)
       : null;
     return (
-      <div>
-        {company}
-        {bids}
-        {payment}
+      <div className="flex-container">
+        <div>
+          {company}
+          {bids}
+          {payment}
+        </div>
       </div>
     );
   }

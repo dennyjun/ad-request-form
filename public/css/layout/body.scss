@@ -1,0 +1,43 @@
+$secondary-color: #e9f0f5 !important;
+
+
+.max-width {
+  width: 100%;
+}
+
+.max-height {
+  height: 100%;
+}
+
+html, body, #app {
+  @extend .max-width;
+  @extend .max-height;
+  padding: 5px;
+}
+
+body {
+  background-color: $secondary-color;
+}
+
+@media only screen and (min-width: 640px) {
+  #app {
+    width: 50%;
+    margin: auto;
+  }
+}
+
+div.link-div {
+  @extend .max-width;
+  text-align: center;
+  margin-top: 10px;
+  a {
+    width: 50%;
+  }
+}
+
+.flex-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  @extend .max-width;
+}

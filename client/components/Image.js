@@ -17,10 +17,8 @@ const Image = ({file, handleRemove}) => {
           {file.name}
         </span>
       </div>
-      <div className="card-content">
-        <div className="card-image">      
-          <img src={file.preview} />
-        </div>
+      <div className="card-content">      
+        <img src={file.preview} />
       </div>
     </div>
   );
