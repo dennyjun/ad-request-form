@@ -1,7 +1,7 @@
 describe 'Test Company Controller', () ->
     before (done) ->
-        global.server = require '../../../server/server'
         global.request = require 'supertest'
+        global.server = require '../../../server/server'
         done()
 
     describe 'GET /companies', () ->

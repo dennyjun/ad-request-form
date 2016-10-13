@@ -12,7 +12,7 @@
     "test": "npm run test:client; npm run test:server",
     "nodemon": "nodemon --ignore 'client/*.js' --ignore 'public/js/bundle.js' --ignore 'node_modules' server/server.coffee",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run nodemon\"",
-    "test:client": "node_modules/mocha/bin/mocha test/client --recursive",
+    "test:client": "node_modules/webdriverio/bin/wdio",
     "test:server": "node_modules/mocha/bin/mocha test/server --recursive"
   },
   "author": "",
@@ -52,6 +52,12 @@
     "phantomjs": "^2.1.7",
     "selenium-standalone": "^5.7.2",
     "supertest": "^2.0.0",
+    "wdio-dot-reporter": "0.0.6",
+    "wdio-mocha-framework": "^0.4.3",
+    "wdio-phantomjs-service": "^0.1.0",
+    "wdio-sauce-service": "^0.2.5",
+    "wdio-selenium-standalone-service": "0.0.7",
+    "wdio-spec-reporter": "0.0.3",
     "webdriverio": "^4.2.16"
   },
   "engines": {
