@@ -146,7 +146,7 @@ exports.config = {
     //
     // Gets executed once before all workers get launched.
     onPrepare: function (config, capabilities) {
-        function syncSauceConnectLauncher(){
+        function syncSauceConnectLauncher() {
             var ret;
             var sauceConnectLauncher = require('sauce-connect-launcher');
             console.log('Attempting to Sauce Connect');
@@ -159,14 +159,14 @@ exports.config = {
                 console.error(err.message);
                 return;
               }
+              global.sauceConnectProcess = sauceConnectProcess;
               ret = 'Sauce Connect ready';
               console.log(ret);
-              global.sauceConnectProcess = sauceConnectProcess;
             });
-              while(ret === undefined) {
+            while(ret === undefined) {
                 require('deasync').runLoopOnce();
-              }
-              return ret;    
+            }
+            return ret;    
         }
         syncSauceConnectLauncher();
         require('coffee-script/register');
