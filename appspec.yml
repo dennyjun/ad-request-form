@@ -2,26 +2,26 @@ version: 0.0
 os: linux
 files:
 - source: /
-  destination: /home/denny/ad-request-form
+  destination: /home/ec2-user/ad-request-form
 
 permissions:
 - object: /
    pattern: "**"
-   owner: denny
-   group: denny
+   owner: ec2-user
+   group: ec2-user
 
 hooks:
 ApplicationStop:
    - location: aws_deploy_scripts/app-stop.sh
      timeout: 10
-     runas: denny
+     runas: ec2-user
 
 AfterInstall:
    - location: aws_deploy_scripts/install-pkgs.sh
      timeout: 1200
-     runas: denny
+     runas: ec2-user
 
 ApplicationStart:
    - location: aws_deploy_scripts/app-start.sh
      timeout: 60
-     runas: denny
+     runas: ec2-user
