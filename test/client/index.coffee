@@ -1,8 +1,5 @@
 # http://webdriver.io/api.html
 describe 'Test Index', () ->
-    before () ->
-        global.server = require '../../server/server'
-
     describe 'Check Title', () ->
         it 'should see the correct title', () ->
             browser.url 'http://localhost:3000'
@@ -14,6 +11,3 @@ describe 'Test Index', () ->
             browser.url 'http://localhost:3000'
             result = browser.element('body').state || 'success'
             result.should.not.be.equal 'failure'
-
-    after () ->
-        server.close()

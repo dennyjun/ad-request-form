@@ -1,3 +1,4 @@
+require('dotenv') && require('dotenv').config();
 exports.config = {
     
     //
@@ -44,7 +45,11 @@ exports.config = {
         // 5 instance gets started at a time.
         maxInstances: 5,
         //
-        browserName: 'phantomjs'
+        browserName: 'firefox'
+    }, {
+        maxInstances: 5,
+        //
+        browserName: 'chrome'
     }],
     //
     // ===================
@@ -106,8 +111,8 @@ exports.config = {
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
 
-    // set to true with localhost, need to run manually
-    sauceConnect: false,
+    // set to true with localhost and sauce
+    sauceConnect: true,
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -141,6 +146,31 @@ exports.config = {
     //
     // Gets executed once before all workers get launched.
     onPrepare: function (config, capabilities) {
+        function syncSauceConnectLauncher(){
+            var ret;
+            var sauceConnectLauncher = require('sauce-connect-launcher');
+            console.log('Attempting to Sauce Connect');
+            sauceConnectLauncher({
+              username: process.env.SAUCE_USERNAME,
+              accessKey: process.env.SAUCE_ACCESS_KEY
+            }, function (err, sauceConnectProcess) {
+              if (err) {
+                ret = err.message;
+                console.error(err.message);
+                return;
+              }
+              ret = 'Sauce Connect ready';
+              console.log(ret);
+              global.sauceConnectProcess = sauceConnectProcess;
+            });
+              while(ret === undefined) {
+                require('deasync').runLoopOnce();
+              }
+              return ret;    
+        }
+        syncSauceConnectLauncher();
+        require('coffee-script/register');
+        global.server = require('./server/server.coffee');
     },
     //
     // Gets executed before test execution begins. At this point you can access all global
@@ -188,6 +218,9 @@ exports.config = {
     // Gets executed after all tests are done. You still have access to all global variables from
     // the test.
     after: function (result, capabilities, specs) {
+        global.sauceConnectProcess && global.sauceConnectProcess.close(function () {
+            console.log("Closed Sauce Connect process");
+        });
     },
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
