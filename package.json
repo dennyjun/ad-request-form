@@ -13,7 +13,9 @@
     "nodemon": "nodemon --ignore 'client/*.js' --ignore 'public/js/bundle.js' --ignore 'node_modules' server/server.coffee",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run nodemon\"",
     "test:client": "node_modules/webdriverio/bin/wdio",
-    "test:server": "node_modules/mocha/bin/mocha test/server --recursive"
+    "test:server": "node_modules/mocha/bin/mocha test/server --recursive",
+    "daemon:start": "node_modules/pm2/bin/pm2 start server/server.coffee",
+    "daemon:stop": "node_modules/pm2/bin/pm2 stop server"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +40,7 @@
     "jquery": "^3.1.1",
     "morgan": "^1.7.0",
     "node-sass-middleware": "^0.9.8",
+    "pm2": "^2.0.18",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-dropzone": "^3.6.0",

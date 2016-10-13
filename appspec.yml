@@ -15,7 +15,10 @@ ApplicationStop:
    - location: aws_deploy_scripts/app-stop.sh
      timeout: 10
      runas: ec2-user
-
+Install:
+   - location: aws_deploy_scripts/install.sh
+     timeout: 1200
+     runas: root
 AfterInstall:
    - location: aws_deploy_scripts/install-pkgs.sh
      timeout: 1200
