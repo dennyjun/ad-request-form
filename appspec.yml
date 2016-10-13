@@ -1,0 +1,27 @@
+version: 0.0
+os: linux
+files:
+- source: /
+  destination: /home/denny/ad-request-form
+
+permissions:
+- object: /
+   pattern: "**"
+   owner: denny
+   group: denny
+
+hooks:
+ApplicationStop:
+   - location: aws_deploy_scripts/app-stop.sh
+     timeout: 10
+     runas: denny
+
+AfterInstall:
+   - location: aws_deploy_scripts/install-pkgs.sh
+     timeout: 1200
+     runas: denny
+
+ApplicationStart:
+   - location: aws_deploy_scripts/app-start.sh
+     timeout: 60
+     runas: denny
