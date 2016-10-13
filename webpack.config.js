@@ -22,11 +22,6 @@ var config = {
   module: {
     loaders: [
       { 
-        test: /\.js$/, 
-        exclude: /node_modules/, 
-        loaders: ['babel-loader'] 
-      },
-      { 
         test: /\.cjsx$/, 
         loaders: ['coffee', 'cjsx']
       },

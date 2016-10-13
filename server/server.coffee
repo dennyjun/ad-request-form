@@ -40,3 +40,5 @@ router(app, require('./controllers/main')).init();
 
 app.listen app.get('port'), () ->
   console.log 'Express server listening on port ' + app.get 'port'
+
+module.exports = app

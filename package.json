@@ -9,11 +9,11 @@
     "postinstall": "npm run build",
     "webpack-watch": "webpack --watch",
     "start": "coffee server/server.coffee",
-    "test": "npm run test:client && npm run test:server",
+    "test": "npm run test:client; npm run test:server",
     "nodemon": "nodemon --ignore 'client/*.js' --ignore 'public/js/bundle.js' --ignore 'node_modules' server/server.coffee",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run nodemon\"",
-    "test:client": "mocha test/client --recursive --compilers js:babel-register",
-    "test:server": "mocha test/server --recursive --compilers js:babel-register"
+    "test:client": "node_modules/mocha/bin/mocha test/client --recursive",
+    "test:server": "node_modules/mocha/bin/mocha test/server --recursive"
   },
   "author": "",
   "license": "ISC",
@@ -46,7 +46,13 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
-    "concurrently": "^2.2.0"
+    "chai": "^3.5.0",
+    "concurrently": "^2.2.0",
+    "mocha": "^3.1.2",
+    "phantomjs": "^2.1.7",
+    "selenium-standalone": "^5.7.2",
+    "supertest": "^2.0.0",
+    "webdriverio": "^4.2.16"
   },
   "engines": {
     "node": "6.1.0",
