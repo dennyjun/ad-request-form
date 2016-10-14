@@ -4,7 +4,7 @@ files:
 - source: /
   destination: /home/ec2-user/ad-request-form
 permissions:
-- object: /home/ec2-user/ad-request-form
+- object: /
   pattern: "**"
   owner: ec2-user
 hooks:
