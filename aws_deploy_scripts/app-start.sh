@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/denny/ad-request-form
+cd /home/ec2-user/ad-request-form
 npm run daemon:start
