@@ -70,7 +70,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/client/**'
+        './test/client/wdio/**'
     ],
     // Patterns to exclude.
     exclude: [
@@ -108,7 +108,7 @@ exports.config = {
     }, {
         maxInstances: 5,
         //
-        browserName: 'chrome'
+        browserName: 'chrome',
     // }, {
         // maxInstances: 5,
         // //
@@ -175,11 +175,11 @@ exports.config = {
         'phantomjs',
         'sauce'
     ],
-    user: process.env.SAUCE_USERNAME,
-    key: process.env.SAUCE_ACCESS_KEY,
+    user: process.env.SAUCE_USERNAM,
+    key: process.env.SAUCE_ACCESS_KE,
 
     // will turn on if credentials exists, manual override at end
-    sauceConnect: (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) || false,
+    sauceConnect: (process.env.SAUCE_USERNAM && process.env.SAUCE_ACCESS_KE) || false,
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber

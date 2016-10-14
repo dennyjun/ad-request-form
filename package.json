@@ -9,10 +9,10 @@
     "postinstall": "npm run build",
     "webpack-watch": "webpack --watch",
     "start": "coffee server/server.coffee",
-    "test": "npm run test:client; npm run test:server",
+    "test": "npm run test:client:wdio; npm run test:server",
     "nodemon": "nodemon --ignore 'client/*.js' --ignore 'public/js/bundle.js' --ignore 'node_modules' server/server.coffee",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run nodemon\"",
-    "test:client": "node_modules/webdriverio/bin/wdio",
+    "test:client:wdio": "node_modules/webdriverio/bin/wdio",
     "test:server": "node_modules/mocha/bin/mocha test/server --recursive",
     "daemon:start": "node_modules/pm2/bin/pm2 start server/server.coffee",
     "daemon:stop": "node_modules/pm2/bin/pm2 stop server"
