@@ -4,6 +4,12 @@ files:
 - source: /
   destination: /home/ec2-user/ad-request-form
 
+permissions:
+- object: /
+   pattern: "**"
+   owner: ec2-user
+   group: ec2-user
+
 hooks:
 ApplicationStop:
    - location: aws_deploy_scripts/app-stop.sh
@@ -19,6 +25,7 @@ Install:
 AfterInstall:
    - location: aws_deploy_scripts/install-pkgs.sh
      timeout: 1200
+
 ApplicationStart:
    - location: aws_deploy_scripts/app-start.sh
      timeout: 60
