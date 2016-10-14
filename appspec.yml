@@ -8,15 +8,15 @@ permissions:
   pattern: "**"
   owner: ec2-user
 hooks:
+  ApplicationStop:
+     - location: aws_deploy_scripts/app-stop.sh
+       timeout: 10
+       runas: ec2-user
   AfterInstall:
-     - location: /home/ec2-user/ad-request-form/aws_deploy_scripts/install-pkgs.sh
+     - location: aws_deploy_scripts/install-pkgs.sh
        timeout: 3600
        runas: ec2-user
   ApplicationStart:
-     - location: /home/ec2-user/ad-request-form/aws_deploy_scripts/app-start.sh
+     - location: aws_deploy_scripts/app-start.sh
        timeout: 60
-       runas: ec2-user
-  ApplicationStop:
-     - location: /home/ec2-user/ad-request-form/aws_deploy_scripts/app-stop.sh
-       timeout: 10
        runas: ec2-user
