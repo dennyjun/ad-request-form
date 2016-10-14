@@ -3,12 +3,11 @@ os: linux
 files:
 - source: /
   destination: /home/ec2-user/ad-request-form
-
 permissions:
 - object: /home/ec2-user/ad-request-form
-   pattern: "**"
    owner: ec2-user
-
+   type:
+      - directory
 hooks:
 ApplicationStop:
    - location: aws_deploy_scripts/app-stop.sh
