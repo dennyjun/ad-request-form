@@ -1,4 +1,63 @@
 require('dotenv') && require('dotenv').config();
+var sauceConnectLauncher = require('sauce-connect-launcher');
+global.sauceConnectProcess = null;
+var options = {
+    // Sauce Labs username.  You can also pass this through the
+    // SAUCE_USERNAME environment variable
+    username: process.env.SAUCE_USERNAME,
+
+    // Sauce Labs access key.  You can also pass this through the
+    // SAUCE_ACCESS_KEY environment variable
+    accessKey: process.env.SAUCE_ACCESS_KEY,
+
+    // Log output from the `sc` process to stdout?
+    verbose: null,
+
+    // Enable verbose debugging (optional)
+    verboseDebugging: null,
+
+    // Port on which Sauce Connect's Selenium relay will listen for
+    // requests. Default 4445. (optional)
+    port: null,
+
+    // Proxy host and port that Sauce Connect should use to connect to
+    // the Sauce Labs cloud. e.g. "localhost:1234" (optional)
+    proxy: null,
+
+    // Change sauce connect logfile location (optional)
+    logfile: null,
+
+    // Period to log statistics about HTTP traffic in seconds (optional)
+    logStats: null,
+
+    // Maximum size before which the logfile is rotated (optional)
+    maxLogsize: null,
+
+    // Set to true to perform checks to detect possible misconfiguration or problems (optional)
+    doctor: null,
+
+    // Identity the tunnel for concurrent tunnels (optional)
+    tunnelIdentifier: null,
+
+    // an array or comma-separated list of regexes whose matches
+    // will not go through the tunnel. (optional)
+    fastFailRegexps: null,
+
+    // an array or comma-separated list of domains that will not go
+    // through the tunnel. (optional)
+    directDomains: null,
+
+    // A function to optionally write sauce-connect-launcher log messages.
+    // e.g. `console.log`.  (optional)
+    logger: function (message) {
+        console.log(message);
+    },
+
+    // an optional suffix to be appended to the `readyFile` name.
+    // useful when running multiple tunnels on the same machine,
+    // such as in a continuous integration environment. (optional)
+    readyFileId: null
+};
 exports.config = {
     
     //
@@ -63,7 +122,7 @@ exports.config = {
     sync: true,
     //
     // Level of logging verbosity: silent | verbose | command | data | result | error
-    logLevel: 'error',
+    //logLevel: 'error',
     //
     // Enables colors for log output.
     coloredLogs: true,
@@ -76,7 +135,7 @@ exports.config = {
     baseUrl: 'http://localhost:3000',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 30000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
@@ -107,12 +166,16 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['sauce','selenium-standalone','phantomjs'],
+    services: [
+        // 'selenium-standalone',
+        // 'phantomjs',
+        'sauce'
+    ],
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
 
     // set to true with localhost and sauce
-    sauceConnect: true,
+    sauceConnect: false,
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -146,31 +209,19 @@ exports.config = {
     //
     // Gets executed once before all workers get launched.
     onPrepare: function (config, capabilities) {
-        function syncSauceConnectLauncher() {
-            var ret;
-            var sauceConnectLauncher = require('sauce-connect-launcher');
+        return new Promise(function(resolve, reject) {          
             console.log('Attempting to Sauce Connect');
-            sauceConnectLauncher({
-              username: process.env.SAUCE_USERNAME,
-              accessKey: process.env.SAUCE_ACCESS_KEY
-            }, function (err, sauceConnectProcess) {
-              if (err) {
-                ret = err.message;
-                console.error(err.message);
-                return;
-              }
-              global.sauceConnectProcess = sauceConnectProcess;
-              ret = 'Sauce Connect ready';
-              console.log(ret);
+            sauceConnectLauncher(options, function (err, sauceConnectProcess) {
+                if (err) {
+                    return reject(err.message);
+                }
+                global.sauceConnectProcess = sauceConnectProcess;
+                console.log('Sauce Connect ready');
+                require('coffee-script/register');
+                global.server = require('./server/server.coffee');
+                resolve();
             });
-            while(ret === undefined) {
-                require('deasync').runLoopOnce();
-            }
-            return ret;    
-        }
-        syncSauceConnectLauncher();
-        require('coffee-script/register');
-        global.server = require('./server/server.coffee');
+        });
     },
     //
     // Gets executed before test execution begins. At this point you can access all global
@@ -218,13 +269,14 @@ exports.config = {
     // Gets executed after all tests are done. You still have access to all global variables from
     // the test.
     after: function (result, capabilities, specs) {
-        global.sauceConnectProcess && global.sauceConnectProcess.close(function () {
-            console.log("Closed Sauce Connect process");
-        });
     },
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
     onComplete: function(exitCode) {
+        global.sauceConnectProcess.close(function () {
+            console.log('Closed Sauce Connect');
+            return true;
+        });
     }
 }
