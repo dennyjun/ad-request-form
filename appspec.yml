@@ -1,10 +1,10 @@
 version: 0.0
 os: linux
 files:
-- source: /
-  destination: /home/ec2-user/ad-request-form
 - source: /aws_deploy_scripts
   destination: /aws_deploy_scripts
+- source: /
+  destination: /home/ec2-user/ad-request-form
 permissions:
 - object: /
   pattern: "**"

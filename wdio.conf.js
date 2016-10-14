@@ -109,6 +109,10 @@ exports.config = {
         maxInstances: 5,
         //
         browserName: 'chrome'
+    // }, {
+        // maxInstances: 5,
+        // //
+        // browserName: 'phantomjs'
     }],
     //
     // ===================
@@ -122,7 +126,7 @@ exports.config = {
     sync: true,
     //
     // Level of logging verbosity: silent | verbose | command | data | result | error
-    //logLevel: 'error',
+    logLevel: 'error',
     //
     // Enables colors for log output.
     coloredLogs: true,
@@ -167,15 +171,15 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: [
-        // 'selenium-standalone',
-        // 'phantomjs',
+        'selenium-standalone',
+        'phantomjs',
         'sauce'
     ],
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
 
     // set to true with localhost and sauce
-    sauceConnect: false,
+    sauceConnect: true,
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -209,19 +213,8 @@ exports.config = {
     //
     // Gets executed once before all workers get launched.
     onPrepare: function (config, capabilities) {
-        return new Promise(function(resolve, reject) {          
-            console.log('Attempting to Sauce Connect');
-            sauceConnectLauncher(options, function (err, sauceConnectProcess) {
-                if (err) {
-                    return reject(err.message);
-                }
-                global.sauceConnectProcess = sauceConnectProcess;
-                console.log('Sauce Connect ready');
-                require('coffee-script/register');
-                global.server = require('./server/server.coffee');
-                resolve();
-            });
-        });
+        require('coffee-script/register');
+        global.server = require('./server/server.coffee');
     },
     //
     // Gets executed before test execution begins. At this point you can access all global
@@ -274,9 +267,12 @@ exports.config = {
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
     onComplete: function(exitCode) {
-        global.sauceConnectProcess.close(function () {
-            console.log('Closed Sauce Connect');
-            return true;
+        console.log('WDIO testrunner complete')
+        var exec = require('child_process').exec;
+        var cmd = 'killall -9 sc';
+
+        exec(cmd, function(error, stdout, stderr) {
+          // command output is in stdout
         });
     }
 }
