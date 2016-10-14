@@ -178,8 +178,8 @@ exports.config = {
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
 
-    // set to true with localhost and sauce
-    sauceConnect: true,
+    // will turn on if credentials exists, manual override at end
+    sauceConnect: (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY} || false,
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
