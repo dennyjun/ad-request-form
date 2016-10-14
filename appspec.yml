@@ -15,6 +15,10 @@ ApplicationStop:
    - location: aws_deploy_scripts/app-stop.sh
      timeout: 10
      runas: ec2-user
+BeforeInstall:
+   - location: aws_deploy_scripts/before-install.sh
+     timeout: 1200
+     runas: root
 Install:
    - location: aws_deploy_scripts/install.sh
      timeout: 1200
