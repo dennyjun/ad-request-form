@@ -1,65 +1,5 @@
 require('dotenv') && require('dotenv').config();
-var sauceConnectLauncher = require('sauce-connect-launcher');
-global.sauceConnectProcess = null;
-var options = {
-    // Sauce Labs username.  You can also pass this through the
-    // SAUCE_USERNAME environment variable
-    username: process.env.SAUCE_USERNAME,
-
-    // Sauce Labs access key.  You can also pass this through the
-    // SAUCE_ACCESS_KEY environment variable
-    accessKey: process.env.SAUCE_ACCESS_KEY,
-
-    // Log output from the `sc` process to stdout?
-    verbose: null,
-
-    // Enable verbose debugging (optional)
-    verboseDebugging: null,
-
-    // Port on which Sauce Connect's Selenium relay will listen for
-    // requests. Default 4445. (optional)
-    port: null,
-
-    // Proxy host and port that Sauce Connect should use to connect to
-    // the Sauce Labs cloud. e.g. "localhost:1234" (optional)
-    proxy: null,
-
-    // Change sauce connect logfile location (optional)
-    logfile: null,
-
-    // Period to log statistics about HTTP traffic in seconds (optional)
-    logStats: null,
-
-    // Maximum size before which the logfile is rotated (optional)
-    maxLogsize: null,
-
-    // Set to true to perform checks to detect possible misconfiguration or problems (optional)
-    doctor: null,
-
-    // Identity the tunnel for concurrent tunnels (optional)
-    tunnelIdentifier: null,
-
-    // an array or comma-separated list of regexes whose matches
-    // will not go through the tunnel. (optional)
-    fastFailRegexps: null,
-
-    // an array or comma-separated list of domains that will not go
-    // through the tunnel. (optional)
-    directDomains: null,
-
-    // A function to optionally write sauce-connect-launcher log messages.
-    // e.g. `console.log`.  (optional)
-    logger: function (message) {
-        console.log(message);
-    },
-
-    // an optional suffix to be appended to the `readyFile` name.
-    // useful when running multiple tunnels on the same machine,
-    // such as in a continuous integration environment. (optional)
-    readyFileId: null
-};
-exports.config = {
-    
+exports.config = {    
     //
     // ==================
     // Specify Test Files
@@ -70,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/client/wdio/**'
+        './test/client/**'
     ],
     // Patterns to exclude.
     exclude: [
@@ -94,35 +34,9 @@ exports.config = {
     //
     maxInstances: 10,
     //
-    // If you have trouble getting all important capabilities together, check out the
-    // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://docs.saucelabs.com/reference/platforms-configurator
-    //
     capabilities: [{
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instance available you can make sure that not more than
-        // 5 instance gets started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'firefox'
-    }, {
-        maxInstances: 5,
-        //
-        browserName: 'chrome',
-    // }, {
-        // maxInstances: 5,
-        // //
-        // browserName: 'phantomjs'
+        browserName: 'chrome'
     }],
-    //
-    // ===================
-    // Test Configurations
-    // ===================
-    // Define all options that are relevant for the WebdriverIO instance here
-    //
-    // By default WebdriverIO commands are executed in a synchronous way using
-    // the wdio-sync package. If you still want to run your tests in an async way
-    // e.g. using promises you can set the sync option to false.
     sync: true,
     //
     // Level of logging verbosity: silent | verbose | command | data | result | error
@@ -140,10 +54,6 @@ exports.config = {
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 30000,
-    //
-    // Default timeout in milliseconds for request
-    // if Selenium Grid doesn't send response
-    connectionRetryTimeout: 90000,
     //
     // Default request retries count
     connectionRetryCount: 3,
@@ -170,16 +80,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [
-        'selenium-standalone',
-        'phantomjs',
-        'sauce'
-    ],
-    user: process.env.SAUCE_USERNAM,
-    key: process.env.SAUCE_ACCESS_KE,
-
-    // will turn on if credentials exists, manual override at end
-    sauceConnect: (process.env.SAUCE_USERNAM && process.env.SAUCE_ACCESS_KE) || false,
+    services: ['selenium-standalone'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -214,7 +115,7 @@ exports.config = {
     // Gets executed once before all workers get launched.
     onPrepare: function (config, capabilities) {
         require('coffee-script/register');
-        global.server = require('./server/server.coffee');
+        global.server = require('../server/server.coffee');
     },
     //
     // Gets executed before test execution begins. At this point you can access all global
@@ -267,12 +168,6 @@ exports.config = {
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
     onComplete: function(exitCode) {
-        console.log('WDIO testrunner complete')
-        var exec = require('child_process').exec;
-        var cmd = 'killall -9 sc';
-
-        exec(cmd, function(error, stdout, stderr) {
-          // command output is in stdout
-        });
+        console.log('Testing complete');
     }
 }
