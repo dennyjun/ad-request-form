@@ -1,4 +1,4 @@
-require('dotenv') && require('dotenv').config();
+var selenium = require('selenium-standalone');
 exports.config = {    
     //
     // ==================
@@ -80,7 +80,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone'],
+    // services: [''],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -124,6 +124,24 @@ exports.config = {
         var chai = require('chai');
         global.expect = chai.expect;
         chai.Should();
+
+        // https://github.com/vvo/selenium-standalone
+        return selenium.install({
+            logger: function(message) {
+                return console.log(message);
+            }
+        }, function(err) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log('Start local testing...');
+            return selenium.start(function(err, process) {
+                if (err) {
+                    return console.error(err);
+                }
+                selenium.process = process;
+            });
+        });
     },
     //
     // Hook that gets executed before the suite starts
@@ -168,6 +186,7 @@ exports.config = {
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
     onComplete: function(exitCode) {
-        console.log('Testing complete');
+        console.log('Local testing complete');
+        selenium && selenium.process && selenium.process.kill();
     }
 }
