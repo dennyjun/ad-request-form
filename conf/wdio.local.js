@@ -1,4 +1,3 @@
-var selenium = require('selenium-standalone');
 exports.config = {    
     //
     // ==================
@@ -36,6 +35,8 @@ exports.config = {
     //
     capabilities: [{
         browserName: 'chrome'
+    // }, {
+        // browserName: 'phantomjs'
     }],
     sync: true,
     //
@@ -80,7 +81,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [''],
+    services: ['selenium-standalone'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -121,27 +122,10 @@ exports.config = {
     // Gets executed before test execution begins. At this point you can access all global
     // variables, such as `browser`. It is the perfect place to define custom commands.
     before: function (capabilities, specs) {
+        console.log('\nStart local testing...\n');
         var chai = require('chai');
         global.expect = chai.expect;
         chai.Should();
-
-        // https://github.com/vvo/selenium-standalone
-        return selenium.install({
-            logger: function(message) {
-                return console.log(message);
-            }
-        }, function(err) {
-            if (err) {
-                return console.error(err);
-            }
-            console.log('Start local testing...');
-            return selenium.start(function(err, process) {
-                if (err) {
-                    return console.error(err);
-                }
-                selenium.process = process;
-            });
-        });
     },
     //
     // Hook that gets executed before the suite starts
@@ -187,6 +171,5 @@ exports.config = {
     // possible to defer the end of the process using a promise.
     onComplete: function(exitCode) {
         console.log('Local testing complete');
-        selenium && selenium.process && selenium.process.kill();
     }
 }

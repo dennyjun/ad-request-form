@@ -1,63 +1,4 @@
 require('dotenv') && require('dotenv').config();
-var sauceConnectLauncher = require('sauce-connect-launcher');
-global.sauceConnectProcess = null;
-var options = {
-    // Sauce Labs username.  You can also pass this through the
-    // SAUCE_USERNAME environment variable
-    username: process.env.SAUCE_USERNAME,
-
-    // Sauce Labs access key.  You can also pass this through the
-    // SAUCE_ACCESS_KEY environment variable
-    accessKey: process.env.SAUCE_ACCESS_KEY,
-
-    // Log output from the `sc` process to stdout?
-    verbose: null,
-
-    // Enable verbose debugging (optional)
-    verboseDebugging: null,
-
-    // Port on which Sauce Connect's Selenium relay will listen for
-    // requests. Default 4445. (optional)
-    port: null,
-
-    // Proxy host and port that Sauce Connect should use to connect to
-    // the Sauce Labs cloud. e.g. "localhost:1234" (optional)
-    proxy: null,
-
-    // Change sauce connect logfile location (optional)
-    logfile: null,
-
-    // Period to log statistics about HTTP traffic in seconds (optional)
-    logStats: null,
-
-    // Maximum size before which the logfile is rotated (optional)
-    maxLogsize: null,
-
-    // Set to true to perform checks to detect possible misconfiguration or problems (optional)
-    doctor: null,
-
-    // Identity the tunnel for concurrent tunnels (optional)
-    tunnelIdentifier: null,
-
-    // an array or comma-separated list of regexes whose matches
-    // will not go through the tunnel. (optional)
-    fastFailRegexps: null,
-
-    // an array or comma-separated list of domains that will not go
-    // through the tunnel. (optional)
-    directDomains: null,
-
-    // A function to optionally write sauce-connect-launcher log messages.
-    // e.g. `console.log`.  (optional)
-    logger: function (message) {
-        console.log(message);
-    },
-
-    // an optional suffix to be appended to the `readyFile` name.
-    // useful when running multiple tunnels on the same machine,
-    // such as in a continuous integration environment. (optional)
-    readyFileId: null
-};
 exports.config = {
     
     //
@@ -102,10 +43,10 @@ exports.config = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instance available you can make sure that not more than
         // 5 instance gets started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'firefox'
-    }, {
+    //     maxInstances: 5,
+    //     //
+    //     browserName: 'firefox'
+    // }, {
         maxInstances: 5,
         //
         browserName: 'chrome',
@@ -172,14 +113,13 @@ exports.config = {
     // commands. Instead, they hook themselves up into the test process.
     services: [
         'selenium-standalone',
-        'phantomjs',
         'sauce'
     ],
-    user: process.env.SAUCE_USERNAM,
-    key: process.env.SAUCE_ACCESS_KE,
+    user: process.env.SAUCE_USERNAME,
+    key: process.env.SAUCE_ACCESS_KEY,
 
-    // will turn on if credentials exists, manual override at end
-    sauceConnect: (process.env.SAUCE_USERNAM && process.env.SAUCE_ACCESS_KE) || false,
+    // will turn on if credentials exists
+    sauceConnect: (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY),
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -211,6 +151,7 @@ exports.config = {
     // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
     // resolved to continue.
     //
+    // can't add a console log in function, will get an error
     // Gets executed once before all workers get launched.
     onPrepare: function (config, capabilities) {
         require('coffee-script/register');
@@ -220,6 +161,7 @@ exports.config = {
     // Gets executed before test execution begins. At this point you can access all global
     // variables, such as `browser`. It is the perfect place to define custom commands.
     before: function (capabilities, specs) {
+        console.log('\nStart Sauce Labs testing...\n');
         var chai = require('chai');
         global.expect = chai.expect;
         chai.Should();
@@ -267,7 +209,7 @@ exports.config = {
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
     onComplete: function(exitCode) {
-        console.log('WDIO testrunner complete')
+        console.log('Sauce Labs testing complete');
         var exec = require('child_process').exec;
         var cmd = 'killall -9 sc';
 
