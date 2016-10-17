@@ -1,9 +1,10 @@
-user = require './user'
-bid = require './bid'
-company = require './company'
-image = require './image'
-payment = require './payment'
-confirm = require './confirm'
+path = require 'path'
+user = require path.resolve 'server/controllers/user'
+bid = require path.resolve 'server/controllers/bid'
+company = require path.resolve 'server/controllers/company'
+image = require path.resolve 'server/controllers/image'
+payment = require path.resolve 'server/controllers/payment'
+confirm = require path.resolve 'server/controllers/confirm'
 
 module.exports = (() ->
   controllers = [

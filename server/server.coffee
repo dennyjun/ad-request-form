@@ -6,10 +6,7 @@ logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 sass = require 'node-sass-middleware'
-router = require './router'
-
-require 'babel-core/register'
-require 'babel-polyfill'
+router = require path.resolve 'server/router'
 
 app = express()
 app.set "env", process.env.NODE_ENV || "development"
@@ -22,12 +19,12 @@ app.use bodyParser.urlencoded
   extended: false
 app.use expressValidator()
 app.use cookieParser()
-app.use express.static path.join __dirname, '/../public'
-app.use express.static __dirname + '/../node_modules/jquery'
-app.use express.static __dirname + '/../node_modules/bootstrap'
+app.use express.static path.resolve 'public'
+app.use express.static path.resolve 'node_modules/jquery'
+app.use express.static path.resolve 'node_modules/bootstrap'
 app.use sass
-  src: path.join __dirname, '/../public' 
-  dest: path.join __dirname, '/../public' 
+  src: path.resolve 'public' 
+  dest: path.resolve 'public' 
 
 app.use (req, res, next) ->
   res.header 'Access-Control-Allow-Origin', '*'
@@ -36,7 +33,7 @@ app.use (req, res, next) ->
     'Content-Type, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name'
   next()
 
-router(app, require('./controllers/main')).init();
+router(app, require(path.resolve 'server/controllers/main')).init();
 
 module.exports = app.listen app.get('port'), () ->
   console.log 'Express server listening on port ' + app.get 'port'

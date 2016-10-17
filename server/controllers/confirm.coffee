@@ -1,5 +1,6 @@
-ControllerPrototype = require './controller.prototype'
-Storage = require '../storage'
+path = require 'path'
+ControllerPrototype = require path.resolve 'server/controllers/controller.prototype'
+Storage = require path.resolve 'server/storage'
 
 module.exports = (() ->
   controller = ControllerPrototype.create

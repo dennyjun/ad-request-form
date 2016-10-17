@@ -5,7 +5,7 @@ var config = {
   debug: process.env.NODE_ENV !== 'production',
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    './client/main.cjsx'
+    path.resolve('client/main.cjsx')
   ],
   output: {
     path: path.join(__dirname, 'public', 'js'),
