@@ -1,11 +1,11 @@
 React = require 'react'
 ReactDOM  = require 'react-dom'
-Router = require('react-router')
+Router = require 'react-router'
 RouteHandler = Router.RouteHandler
 DefaultRoute = Router.DefaultRoute
 NotFoundRoute = Router.NotFoundRoute
 Route = Router.Route
-BrowserHistory = require('react-router').BrowserHistory
+BrowserHistory = Router.BrowserHistory
 
 NotFound = require './components/NotFound.cjsx'
 App = require './components/App.cjsx'
